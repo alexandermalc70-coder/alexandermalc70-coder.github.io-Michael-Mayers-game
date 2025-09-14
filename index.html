@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escape from Michael Myers - Survival Horror Game</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #fff;
+            line-height: 1.6;
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23150a0a"/><path d="M0 0L100 100" stroke="%23200a0a" stroke-width="2"/><path d="M100 0L0 100" stroke="%23200a0a" stroke-width="2"/></svg>');
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        .logo {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #c22b2b;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(194, 43, 43, 0.7);
+            margin-bottom: 10px;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+        
+        .description {
+            background-color: rgba(20, 10, 10, 0.8);
+            padding: 30px;
+            border-radius: 10px;
+            border-left: 4px solid #c22b2b;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        .description h2 {
+            color: #c22b2b;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+        
+        .description p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .avatar-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 5px solid #c22b2b;
+            box-shadow: 0 0 20px rgba(194, 43, 43, 0.7);
+            margin: 0 auto 20px;
+            background: linear-gradient(45deg, #300, #522);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #c22b2b;
+            font-size: 3rem;
+        }
+        
+        .screenshots {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .screenshot {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            background: #1a0a0a;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .screenshot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .screenshot:hover {
+            transform: translateY(-5px);
+        }
+        
+        .screenshot-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            color: white;
+            font-size: 1.2rem;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .screenshot:hover .screenshot-overlay {
+            opacity: 1;
+        }
+        
+        .links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 50px 0;
+            flex-wrap: wrap;
+        }
+        
+        .link-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            background-color: #c22b2b;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(194, 43, 43, 0.4);
+        }
+        
+        .link-btn:hover {
+            background-color: #a52222;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(194, 43, 43, 0.6);
+        }
+        
+        .link-btn i {
+            font-size: 1.5rem;
+        }
+        
+        .discord-btn {
+            background-color: #5865f2;
+            box-shadow: 0 5px 15px rgba(88, 101, 242, 0.4);
+        }
+        
+        .discord-btn:hover {
+            background-color: #4752c4;
+            box-shadow: 0 8px 20px rgba(88, 101, 242, 0.6);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+            border-top: 1px solid #333;
+            color: #666;
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            margin-top: 10px;
+            color: #888;
+        }
+        
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .screenshots {
+                grid-template-columns: 1fr;
+            }
+            
+            .links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">Escape from Michael Myers</div>
+            <div class="tagline">Выживи любой ценой | Survive at all costs</div>
+        </header>
+        
+        <section class="description">
+            <h2>Об игре / About the Game</h2>
+            <p>Multiplayer survival horror game where four victims try to escape from a Michael Myers.</p>
+            <p>Многопользовательская игра в жанре survival horror, в которой четыре жертвы пытаются сбежать от Майкла Маерса.</p>
+            <p>Объединитесь с другими игроками, чтобы найти способ сбежать, пока легендарный убийца Майкл Маерс преследует вас. Используйте окружающую среду, чтобы спрятаться, отвлекайте его и помогайте другим выжившим.</p>
+        </section>
+        
+        <section class="avatar-section">
+            <div class="avatar">
+                <i class="fas fa-skull-crossbones"></i>
+            </div>
+            <h3>Официальный телеграм канал / Official Telegram Channel</h3>
+            <p>Подписывайтесь для получения последних новостей и обновлений</p>
+        </section>
+        
+        <section class="screenshots">
+            <div class="screenshot">
+                <img src="https://i.ibb.co/VcdqWB0v/image.jpg" alt="Скриншот 1">
+                <div class="screenshot-overlay">Охота в темноте - Игровой процесс</div>
+            </div>
+            <div class="screenshot">
+                <img src="https://i.ibb.co/HDfrtBpT/image.jpg" alt="Скриншот 2">
+                <div class="screenshot-overlay">Командное выживание - Кооперативный режим</div>
+            </div>
+            <div class="screenshot">
+                <img src="https://i.ibb.co/R4Ztr0pM/image.jpg" alt="Скриншот 3">
+                <div class="screenshot-overlay">Побег от Майкла - Захватывающие моменты</div>
+            </div>
+        </section>
+        
+        <section class="links">
+            <a href="https://t.me/HalloweenTVG" class="link-btn" target="_blank">
+                <i class="fab fa-telegram"></i>
+                Telegram Канал
+            </a>
+            <a href="https://discord.gg/vkATsP5s" class="link-btn discord-btn" target="_blank">
+                <i class="fab fa-discord"></i>
+                Discord Сервер
+            </a>
+        </section>
+        
+        <footer>
+            <p>© 2023 Escape from Michael Myers. Все права защищены.</p>
+            <p class="copyright">Michael Myers и связанные персонажи являются собственностью их правообладателей.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Анимация для элементов при прокрутке
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.description, .avatar, .screenshot, .link-btn');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animatedElements.forEach(element => {
+                element.style.opacity = 0;
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(element);
+            });
+            
+            // Эффект наведения для кнопок
+            const buttons = document.querySelectorAll('.link-btn');
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-3px)';
+                });
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
